@@ -1,7 +1,15 @@
 #include "Game.h"
 #include <SDL_image.h>
+#include <SDL_image.h>
 #include <iostream>
+#include "TextureManager.h"
+#include "GameObject/Enemy.h"
+#include "InputHandler.h"
+#include "States/MenuState.h"
+#include "States/PlayState.h"
 using namespace std;
+Game* Game::s_pInstance = 0;
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
 	// attempt to initialize SDL
@@ -41,36 +49,34 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	std::cout << "init successqq33\n";
 	m_bRunning = true; // everything inited successfully,	start the main loop
 
-	SDL_Surface* pTempSurface =IMG_Load("spritelib_gpl/shooter/invader.png");
-	m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,pTempSurface);
-	SDL_FreeSurface(pTempSurface);
-	cout<<m_sourceRectangle.w<<endl;
-	cout<<m_sourceRectangle.h<<endl;
-	SDL_QueryTexture(m_pTexture, NULL, NULL,&m_sourceRectangle.w, &m_sourceRectangle.h);
-	m_destinationRectangle.x = m_sourceRectangle.x = 0;
-	m_destinationRectangle.y = m_sourceRectangle.y = 0;
-	m_destinationRectangle.w = m_sourceRectangle.w;
-	m_destinationRectangle.h = m_sourceRectangle.h;
-	m_destinationRectangle.w = m_sourceRectangle.w=140;
-	m_destinationRectangle.h = m_sourceRectangle.h=80;
+	TextureManager::getInstance()->load("spritelib_gpl/fishdish/fishbaddie_parts.png","fishbaddie_parts",m_pRenderer);
 
-	cout<<m_sourceRectangle.w<<endl;
-	cout<<m_sourceRectangle.h<<endl;
+
+
+	m_pGameStateMachine = new GameStateMachine();
+	m_pGameStateMachine->changeState(new MenuState());
+
+
 	return true;
 
 }
+void Game::update()
+{
 
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+
+	m_pGameStateMachine->update();
+
+
+
+
+}
 void Game::render()
 {
-	cout<<"m_destinationRectangle.h"<<endl;
 	SDL_RenderClear(m_pRenderer); // clear the renderer tothe draw color
 
-	m_destinationRectangle.x=m_destinationRectangle.x+1;
-	m_destinationRectangle.y=m_destinationRectangle.y+1;
-	m_destinationRectangle.w = m_destinationRectangle.w+1;
-	m_destinationRectangle.h =m_destinationRectangle.h+1;
-	SDL_Delay(6);
-	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle,	&m_destinationRectangle);
+
+	m_pGameStateMachine->render();
 
 	SDL_RenderPresent(m_pRenderer); // draw to the screen
 
@@ -79,6 +85,8 @@ void Game::render()
 
 void Game::handleEvents2()
 {
+
+
 	SDL_Event event;
 	if(SDL_PollEvent(&event))
 	{
@@ -101,5 +109,6 @@ void Game::clean()
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
+	exit(0);
 }
 
