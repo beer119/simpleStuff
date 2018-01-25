@@ -38,9 +38,9 @@ bool PauseState::onEnter()
 {
 
 GameObject* button1 = new MenuButton( s_pauseToMain);
-button1->load(new LoaderParams(300, 100,200, 80, "fishbaddie_parts"));
+button1->load(new LoaderParams(300, 100,200, 80, "fishbaddie_parts",2));
 GameObject* button2 = new MenuButton(s_resumePlay);
-button1->load(new LoaderParams(300, 300,200, 80, "fishbaddie_parts"));
+button1->load(new LoaderParams(300, 300,200, 80, "fishbaddie_parts",2));
 m_gameObjects.push_back(button1);
 m_gameObjects.push_back(button2);
 std::cout << "entering PauseState\n";

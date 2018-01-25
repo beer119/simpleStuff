@@ -59,9 +59,9 @@ bool MenuState::onEnter()
 		return false;
 	}
 	GameObject* button1 = new MenuButton(s_menuToPlay);
-	button1->load(new LoaderParams(100, 100,	400, 100, "fishbaddie_parts1"));
+	button1->load(new LoaderParams(100, 100,	400, 100, "fishbaddie_parts1",2));
 	GameObject* button2 = new MenuButton(s_exitFromMenu);
-	button2->load(new LoaderParams(100, 300,	400, 100, "fishbaddie_parts1"));
+	button2->load(new LoaderParams(100, 300,	400, 100, "fishbaddie_parts1",2));
 
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);

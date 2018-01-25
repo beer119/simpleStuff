@@ -48,10 +48,10 @@ void PlayState::render()
 bool PlayState::onEnter()
 {
 	GameObject* p=new Player();
-	p->load(new LoaderParams(100, 100, 128, 82,"fishbaddie_parts"));
+	p->load(new LoaderParams(100, 100, 128, 82,"fishbaddie_parts",2));
 	m_gameObjects.push_back(p);
 	GameObject* e=new Enemy();
-	e->load(new LoaderParams(300, 300, 128, 82,"fishbaddie_parts"));
+	e->load(new LoaderParams(300, 300, 128, 82,"fishbaddie_parts",2));
 	m_gameObjects.push_back(e);
 
 

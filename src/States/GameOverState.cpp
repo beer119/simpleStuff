@@ -28,9 +28,9 @@ bool GameOverState::onEnter()
 	std::cout << "entering GameOverState\n";
 //GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 190, 30, "fishbaddie_parts"), 2);
 GameObject* button1 = new MenuButton(s_gameOverToMain);
-button1->load(new LoaderParams(200, 200, 200, 80, "fishbaddie_parts"));
+button1->load(new LoaderParams(200, 200, 200, 80, "fishbaddie_parts",2));
 GameObject* button2 = new MenuButton(s_restartPlay);
-button2->load(new LoaderParams(200, 500,200, 80, "fishbaddie_parts"));
+button2->load(new LoaderParams(200, 500,200, 80, "fishbaddie_parts",2));
 //m_gameObjects.push_back(gameOverText);
 m_gameObjects.push_back(button1);
 m_gameObjects.push_back(button2);
